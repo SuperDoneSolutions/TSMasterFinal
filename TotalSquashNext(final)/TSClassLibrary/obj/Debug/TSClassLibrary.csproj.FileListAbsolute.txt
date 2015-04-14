@@ -37,3 +37,11 @@ C:\Users\Kirsti\Desktop\TSMaster\TotalSquashNext3 (1)\TSClassLibrary\bin\Debug\N
 C:\Users\Kirsti\Desktop\TSMaster\TotalSquashNext3 (1)\TSClassLibrary\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Kirsti\Desktop\TSMaster\TotalSquashNext3 (1)\TSClassLibrary\obj\Debug\TSClassLibrary.dll
 C:\Users\Kirsti\Desktop\TSMaster\TotalSquashNext3 (1)\TSClassLibrary\obj\Debug\TSClassLibrary.pdb
+C:\Users\Kirk Gently\Documents\GitHub\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\bin\Debug\TSClassLibrary.dll
+C:\Users\Kirk Gently\Documents\GitHub\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\bin\Debug\TSClassLibrary.pdb
+C:\Users\Kirk Gently\Documents\GitHub\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\bin\Debug\CloudinaryDotNet.dll
+C:\Users\Kirk Gently\Documents\GitHub\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Kirk Gently\Documents\GitHub\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Kirk Gently\Documents\GitHub\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\obj\Debug\TSClassLibrary.csprojResolveAssemblyReference.cache
+C:\Users\Kirk Gently\Documents\GitHub\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\obj\Debug\TSClassLibrary.dll
+C:\Users\Kirk Gently\Documents\GitHub\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\obj\Debug\TSClassLibrary.pdb
