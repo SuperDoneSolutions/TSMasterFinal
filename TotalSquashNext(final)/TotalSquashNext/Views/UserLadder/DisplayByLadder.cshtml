@@ -1,0 +1,44 @@
+﻿@model IEnumerable<TotalSquashNext.Models.UserLadder>
+
+@{
+    ViewBag.Title = "Current Standings: "+@Session["ladderName"].ToString()+ " Ladder";
+}
+
+<h2>@ViewBag.Title</h2>
+
+</br>
+</br>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.username)
+        </th>
+        <th></th>
+    </tr>
+    @{ int count = 1;}
+    @foreach (var item in Model)
+    {
+       
+        <tr>
+            <td>
+               
+                @(count++)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.username)
+            </td>
+            @{if ((((TotalSquashNext.Models.User)Session["currentUser"]).id != item.userId))
+              {
+            <td>
+                <a href="mailto:@item.User.emailAddress">Contact</a> |
+                <a href="@Url.Action("Challenge","Match",new{id=item.userId})">Challenge</a>
+            </td>
+            }
+            }
+        </tr>
+    }
+
+</table>
