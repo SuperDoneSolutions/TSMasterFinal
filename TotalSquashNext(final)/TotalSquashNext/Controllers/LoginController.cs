@@ -200,15 +200,18 @@ namespace TotalSquashNext.Controllers
                                   where user == x.userId
                                   orderby x.bookingNumber descending
                                   select x).FirstOrDefault();
-            var userBookingTwo = (from x in db.Bookings
+            var userBookingTwoAll = (from x in db.Bookings
                                   where user == x.userId
                                   orderby x.bookingNumber descending
-                                  select x).Skip(1).FirstOrDefault();
+                                  select x).ToList();
+            
+
             if (userBookingOne != null)
             {
                 Session["userBookingsOne"] = userBookingOne;
-                if (userBookingTwo != null)
+                if (userBookingTwoAll.Count > 1)
                 {
+                    var userBookingTwo = userBookingTwoAll[1];
                     Session["userBookingsTwo"] = userBookingTwo;
                 }
                 else
