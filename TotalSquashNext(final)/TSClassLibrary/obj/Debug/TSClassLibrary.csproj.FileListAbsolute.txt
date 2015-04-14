@@ -45,3 +45,11 @@ C:\Users\Kirk Gently\Documents\GitHub\TSMasterFinal\TotalSquashNext(final)\TSCla
 C:\Users\Kirk Gently\Documents\GitHub\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\obj\Debug\TSClassLibrary.csprojResolveAssemblyReference.cache
 C:\Users\Kirk Gently\Documents\GitHub\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\obj\Debug\TSClassLibrary.dll
 C:\Users\Kirk Gently\Documents\GitHub\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\obj\Debug\TSClassLibrary.pdb
+C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\bin\Debug\TSClassLibrary.dll
+C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\bin\Debug\TSClassLibrary.pdb
+C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\bin\Debug\CloudinaryDotNet.dll
+C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\obj\Debug\TSClassLibrary.csprojResolveAssemblyReference.cache
+C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\obj\Debug\TSClassLibrary.dll
+C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TSClassLibrary\obj\Debug\TSClassLibrary.pdb

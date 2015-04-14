@@ -127,3 +127,4 @@ C:\Users\Kirsti\Desktop\TSMaster\TotalSquashNext3 (1)\TotalSquashNext.Tests\bin\
 C:\Users\Kirsti\Desktop\TSMaster\TotalSquashNext3 (1)\TotalSquashNext.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
 C:\Users\Kirsti\Desktop\TSMaster\TotalSquashNext3 (1)\TotalSquashNext.Tests\obj\Debug\TotalSquashNext.Tests.dll
 C:\Users\Kirsti\Desktop\TSMaster\TotalSquashNext3 (1)\TotalSquashNext.Tests\obj\Debug\TotalSquashNext.Tests.pdb
+C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TotalSquashNext.Tests\obj\Debug\TotalSquashNext.Tests.csprojResolveAssemblyReference.cache

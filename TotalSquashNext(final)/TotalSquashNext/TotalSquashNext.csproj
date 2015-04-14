@@ -542,12 +542,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TSClassLibrary\TSClassLibrary.csproj">
-      <Project>{ba6b297a-a39b-44ae-ac75-5d7475743717}</Project>
-      <Name>TSClassLibrary</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="uploads\" />
   </ItemGroup>
   <PropertyGroup>
