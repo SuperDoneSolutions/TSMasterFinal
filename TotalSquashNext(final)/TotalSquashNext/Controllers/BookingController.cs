@@ -137,30 +137,38 @@ namespace TotalSquashNext.Controllers
 
                     if (dateHolder == 0)
                     {
-                        if (datePicked <= checkDayRule && datePicked.TimeOfDay >= dayStart && numBookings < numBookAllowed)
+                        if (datePicked < currentDate)
                         {
-
-                            db.Bookings.Add(booking);
-                            db.SaveChanges();
-                            TempData["message"] = "Your court has been booked.";
-                            return RedirectToAction("LandingPage", "Login");
+                            TempData["message"] = "Sorry friend. You cannot book a court in the past.";
+                            return RedirectToAction("Create", "Booking");
                         }
                         else
                         {
-                            if (datePicked > checkDayRule)
+                            if (datePicked <= checkDayRule && datePicked.TimeOfDay >= dayStart && numBookings < numBookAllowed)
                             {
-                                TempData["message"] = "Sorry friend. You cannot book more than " + dateRules.ToString() + " days in advance!";
-                                return RedirectToAction("Create", "Booking");
+
+                                db.Bookings.Add(booking);
+                                db.SaveChanges();
+                                TempData["message"] = "Your court has been booked.";
+                                return RedirectToAction("LandingPage", "Login");
                             }
-                            else if (datePicked.TimeOfDay < dayStart)
+                            else
                             {
-                                TempData["message"] = "Sorry friend. You cannot book a court earlier than " + dayStart.ToString() + " am!";
-                                return RedirectToAction("Create", "Booking");
-                            }
-                            else if (numBookings >= numBookAllowed)
-                            {
-                                TempData["message"] = "Sorry friend. You cannot have more than " + numBookAllowed.ToString() + " bookings!";
-                                return RedirectToAction("Create", "Booking");
+                                if (datePicked > checkDayRule)
+                                {
+                                    TempData["message"] = "Sorry friend. You cannot book more than " + dateRules.ToString() + " days in advance!";
+                                    return RedirectToAction("Create", "Booking");
+                                }
+                                else if (datePicked.TimeOfDay < dayStart)
+                                {
+                                    TempData["message"] = "Sorry friend. You cannot book a court earlier than " + dayStart.ToString() + " am!";
+                                    return RedirectToAction("Create", "Booking");
+                                }
+                                else if (numBookings >= numBookAllowed)
+                                {
+                                    TempData["message"] = "Sorry friend. You cannot have more than " + numBookAllowed.ToString() + " bookings!";
+                                    return RedirectToAction("Create", "Booking");
+                                }
                             }
                         }
                     }

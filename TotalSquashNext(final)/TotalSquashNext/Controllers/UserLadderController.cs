@@ -37,7 +37,7 @@ namespace TotalSquashNext.Controllers
                 TempData["message"] = "Please login to continue.";
                 return RedirectToAction("VerifyLogin");
             }
-
+            
             Session["ladderName"] = (from x in db.Ladders
                                      where x.ladderId == ladderId
                                      select x.ladderDescription).Single();
@@ -77,7 +77,7 @@ namespace TotalSquashNext.Controllers
             }
             ViewBag.userId = ((TotalSquashNext.Models.User)Session["currentUser"]).username;
             ViewBag.ladderId = new SelectList(db.Ladders, "ladderId", "ladderDescription");
-            //ViewBag.userId = new SelectList(db.Users, "id", "username");
+           
             return View();
         }
 
