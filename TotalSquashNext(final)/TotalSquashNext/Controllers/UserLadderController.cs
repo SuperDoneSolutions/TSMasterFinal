@@ -100,35 +100,47 @@ namespace TotalSquashNext.Controllers
             var usersLadders = (from x in db.UserLadders
                                where x.userId == currentUser
                                select x).Count();
+            int checkLadderReg = (from x in db.UserLadders
+                                  where x.userId == currentUser && x.ladderId == userLadder.ladderId
+                                  select x).Count();
+
             if(usersLadders>=amountOfLadders)
             {
                 TempData["message"] = "Current rules allow you to be registered on " + amountOfLadders + " ladders at a given time.";
                 return RedirectToAction("Index", "Ladder");
             }
 
-
-
-            userLadder.userId = ((TotalSquashNext.Models.User)Session["currentUser"]).id;
-
-            try
+            else if (checkLadderReg > 0)
             {
-                if (ModelState.IsValid)
+                TempData["message"] = "You are already a user of this ladder.";
+                return RedirectToAction("Index", "Ladder");
+            }
+
+            else
+            {
+
+
+                userLadder.userId = ((TotalSquashNext.Models.User)Session["currentUser"]).id;
+
+                try
                 {
-                    db.UserLadders.Add(userLadder);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    if (ModelState.IsValid)
+                    {
+                        db.UserLadders.Add(userLadder);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
                 }
-            }
 
-            catch
-            {
-                TempData["Message"] = "ERROR - Please try again";
-                return View();
-            }
+                catch
+                {
+                    TempData["Message"] = "ERROR - Please try again";
+                    return View();
+                }
 
-            ViewBag.ladderId = new SelectList(db.Ladders, "ladderId", "ladderDescription", userLadder.ladderId);
-            //ViewBag.userId = new SelectList(db.Users, "id", "username", userLadder.userId);
-            return View(userLadder);
+                ViewBag.ladderId = new SelectList(db.Ladders, "ladderId", "ladderDescription", userLadder.ladderId);
+                return View(userLadder);
+            }
         }
 
         // GET: UserLadder/Edit/5
