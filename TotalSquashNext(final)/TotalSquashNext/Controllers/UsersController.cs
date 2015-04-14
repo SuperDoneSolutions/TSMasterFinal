@@ -161,6 +161,7 @@ namespace TotalSquashNext.Controllers
                         user.strike = 0;
                         db.Users.Add(user);
                         db.SaveChanges();
+                        TempData["message"] = "Account created succesfully. Please login to continue.";
                         return RedirectToAction("VerifyLogin", "Login");
                     }
                 }
