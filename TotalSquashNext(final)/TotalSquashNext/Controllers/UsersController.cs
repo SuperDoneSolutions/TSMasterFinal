@@ -307,7 +307,8 @@ namespace TotalSquashNext.Controllers
             User user = db.Users.Find(id);
             db.Users.Remove(user);
             db.SaveChanges();
-            return RedirectToAction("Index", "Users");
+            TempData["message"] = "Account deleted.";
+            return RedirectToAction("VerifyLogin", "Login");
         }
 
         protected override void Dispose(bool disposing)

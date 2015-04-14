@@ -58,6 +58,9 @@
 
 
 
+    <u><b>@Html.ActionLink("Delete Account", "Delete", new { id = (((TotalSquashNext.Models.User)Session["currentUser"]).id) })</b></u>
+    <br />
+    <br />
 
     <form method="post" enctype="multipart/form-data">
         @{
