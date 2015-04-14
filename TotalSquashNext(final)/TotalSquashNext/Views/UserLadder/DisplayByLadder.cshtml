@@ -21,25 +21,32 @@
     @{ int count = 1;}
     @foreach (var item in Model)
     {
-       
+
         <tr>
             <td>
-               
+
                 @(count++)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.User.username)
             </td>
-            @{if ((((TotalSquashNext.Models.User)Session["currentUser"]).id != item.userId))
-              {
-            <td>
-                <a href="mailto:@item.User.emailAddress">Contact</a> |
-                <a href="@Url.Action("Challenge","Match",new{id=item.userId})">Challenge</a> |
-            </td>
+            @if ((((TotalSquashNext.Models.User)Session["currentUser"]).id != item.userId))
+            {
+                <td>
+                    <a href="mailto:@item.User.emailAddress">Contact</a> |
+                    <a href="@Url.Action("Challenge","Match",new{id=item.userId})">Challenge</a> |
+                </td>
+            }
+            @if ((((TotalSquashNext.Models.User)Session["currentUser"]).id == item.userId))
+            {
+                <td>@Html.ActionLink("Leave Ladder", "Delete", new { id = item.userId, ladderId = item.ladderId })</td>
             }
 
-            
-            }   </tr>
-    }
 
-</table>
+
+
+
+            </tr>
+                    }
+
+        </table>

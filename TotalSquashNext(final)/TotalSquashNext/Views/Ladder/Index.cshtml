@@ -14,9 +14,6 @@
         <th>
             @Html.DisplayNameFor(model => model.ladderDescription)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LadderRule.LadderRuleId)
-        </th>
         <th></th>
     </tr>
 
@@ -24,9 +21,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ladderDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LadderRule.LadderRuleId)
             </td>
             <td>
                 @Html.ActionLink("View Ladder", "DisplayByLadder", "UserLadder", new { ladderId = item.ladderId, userId = (((TotalSquashNext.Models.User)Session["currentUser"]).id) }, null) |

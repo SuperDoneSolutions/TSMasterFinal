@@ -20,14 +20,18 @@
         <th>
             @Html.DisplayNameFor(model => model.User.username)
         </th>
+        <th>
+
+        </th>
         <th></th>
     </tr>
+    @{int count = 1;}
 
 @foreach (var item in Model)
 {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.position)
+            @(count++)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Ladder.ladderDescription)
@@ -44,7 +48,9 @@
         @Html.ActionLink("Remove From Ladder", "Delete", new { id = item.userId, ladderId=item.ladderId })
     </td>
 }
+<td></td>
 }
+        
     </tr>
 }
 
