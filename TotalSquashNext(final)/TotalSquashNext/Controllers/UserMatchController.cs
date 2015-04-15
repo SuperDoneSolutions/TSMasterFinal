@@ -118,44 +118,47 @@ namespace TotalSquashNext.Controllers
                 TempData["message"] = "You must be registered for at least one ladder to challenge another player.";
                 return RedirectToAction("Index", "Ladder");
             }
-            if(usersLadder==0 || challengeeLadders==0)
+            else if(usersLadder==0 || challengeeLadders==0)
             {
                 TempData["message"] = "You must both be registered on the same ladder to challenge this player.";
                 return RedirectToAction("Index", "Ladder");
             }
 
-            if((userPosition>challengeePosition)&&(challengeLower=true))
+            else if((userPosition<challengeePosition)&&(challengeLower=true))
             {
                 TempData["message"] = "Current rules do not allow you to challenge a user who is in a lower position on the ladder.";
                 return RedirectToAction("Index", "Ladder");
             }
-            if(challengeePosition-userPosition>challengeRange)
+            else if((challengeePosition-userPosition)>challengeRange)
             {
                 TempData["message"] = "Current rules do not allow you to challenge a user who is greater than" + challengeRange +" spaces above you on the ladder.";
                 return RedirectToAction("Index", "Ladder");
             }
-            if ((userPosition - challengeePosition > challengeRange) && (challengeLower=false))
+            else if (((userPosition - challengeePosition) > challengeRange) && (challengeLower=false))
             {
                 TempData["message"] = "Current rules do not allow you to challenge a user who is greater than" + challengeRange + " spaces above you on the ladder.";
                 return RedirectToAction("Index", "Ladder");
             }
-
-            
-            int[] userIds = new int[2];
-            userIds[0] = ((TotalSquashNext.Models.User)Session["currentUser"]).id;
-            userIds[1] = ((TotalSquashNext.Models.User)Session["userToChallenge"]).id;
-            for (int i = 0; i < userIds.Length; i++)
+            else
             {
-                UserMatch user = new UserMatch();
-                user.userId = userIds[i];
-                user.gameId = gameId;
-                user.score = -1;
-                db.UserMatches.Add(user);
-                db.SaveChanges();
+                int[] userIds = new int[2];
+                userIds[0] = ((TotalSquashNext.Models.User)Session["currentUser"]).id;
+                userIds[1] = ((TotalSquashNext.Models.User)Session["userToChallenge"]).id;
+                for (int i = 0; i < userIds.Length; i++)
+                {
+                    UserMatch user = new UserMatch();
+                    user.userId = userIds[i];
+                    user.gameId = gameId;
+                    user.score = -1;
+                    db.UserMatches.Add(user);
+                    db.SaveChanges();
+                }
+
+
+                return RedirectToAction("Index", new { id = currentUser });
             }
-
-
-            return RedirectToAction("Index", new { id = currentUser });
+            
+            
 
         }
         public ActionResult UpdateScores(int gameId, int userId)

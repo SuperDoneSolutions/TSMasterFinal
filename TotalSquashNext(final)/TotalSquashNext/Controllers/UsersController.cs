@@ -311,6 +311,19 @@ namespace TotalSquashNext.Controllers
             return RedirectToAction("VerifyLogin", "Login");
         }
 
+        public ActionResult ContactUsers()
+        {
+            if (Session["currentUser"] == null)
+            {
+                TempData["message"] = "Please login to continue.";
+                return RedirectToAction("VerifyLogin", "Login");
+            }
+
+            var users = db.Users;
+            return View(users.ToList());
+
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -200,6 +200,7 @@ namespace TotalSquashNext.Controllers
                                   where user == x.userId
                                   orderby x.bookingNumber descending
                                   select x).FirstOrDefault();
+
             var userBookingTwoAll = (from x in db.Bookings
                                   where user == x.userId
                                   orderby x.bookingNumber descending
