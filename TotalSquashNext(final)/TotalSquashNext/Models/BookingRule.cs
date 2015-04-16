@@ -11,7 +11,6 @@ namespace TotalSquashNext.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class BookingRule
     {
@@ -19,19 +18,13 @@ namespace TotalSquashNext.Models
         {
             this.Bookings = new HashSet<Booking>();
         }
-        [Display(Name = "Booking Rules Id")]
+    
         public int bookingRuleId { get; set; }
-        [Display(Name = "Organization")]
         public int organizationID { get; set; }
-        [Display(Name = "Days In Advance Allowed")]
         public int daysInAdvance { get; set; }
-        [Display(Name = "Number of Bookings Allowed")]
         public int numOfBookings { get; set; }
-        [Display(Name = "Number of Missed Booking Strikes")]
         public int numOfStrikes { get; set; }
-        [Display(Name = "Day Start")]
         public System.TimeSpan dayStart { get; set; }
-        [Display(Name = "Booking Length")]
         public int bookingLength { get; set; }
     
         public virtual ICollection<Booking> Bookings { get; set; }
