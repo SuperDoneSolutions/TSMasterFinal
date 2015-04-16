@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using TotalSquashNext.Models;
 
 namespace TotalSquashNext.Models
 {
-    [MetadataType(typeof(UserMetadata))]
+    [MetadataType(typeof(UserMetadataClass))]
 
     public partial class User
     {
-    
+
     }
-    public class UserMetaData
+    public class UserMetadataClass
     {
         [Display(Name = "User ID")]
         public int id { get; set; }
@@ -28,9 +29,14 @@ namespace TotalSquashNext.Models
 
         [Display(Name = "Profile Photo")]
         public string photo { get; set; }
-
+        
+        [Display(Name = "Wins")]
         public Nullable<int> wins { get; set; }
+
+        [Display(Name = "Losses")]
         public Nullable<int> losses { get; set; }
+
+        [Display(Name = "Ties")]
         public Nullable<int> ties { get; set; }
 
         [Display(Name = "First Name")]

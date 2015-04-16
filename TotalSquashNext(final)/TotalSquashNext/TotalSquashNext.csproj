@@ -228,6 +228,7 @@
     <Compile Include="Models\Match.cs">
       <DependentUpon>TotalSquashSQLModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MetadataClasses\UserMetadataClass.cs" />
     <Compile Include="Models\Organization.cs">
       <DependentUpon>TotalSquashSQLModels.tt</DependentUpon>
     </Compile>
@@ -235,9 +236,6 @@
       <DependentUpon>TotalSquashSQLModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Skill.cs">
-      <DependentUpon>TotalSquashSQLModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>TotalSquashSQLModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TotalSquashSQLModels.Context.cs">
@@ -465,7 +463,6 @@
     <Content Include="Views\Booking\Create.cshtml" />
     <Content Include="Views\Booking\Delete.cshtml" />
     <Content Include="Views\Booking\Details.cshtml" />
-    <Content Include="Views\Booking\Edit.cshtml" />
     <Content Include="Views\Booking\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
@@ -528,6 +525,7 @@
     <Content Include="Views\Emails\Web.config" />
     <Content Include="Views\Emails\_ViewStart.cshtml" />
     <Content Include="Views\Booking\AlternateCourt.cshtml" />
+    <Content Include="Views\Users\ContactUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

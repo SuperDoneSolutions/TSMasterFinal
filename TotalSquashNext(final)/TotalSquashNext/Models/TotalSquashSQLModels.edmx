@@ -197,7 +197,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_bookingNumber">
-          <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Match" Type="Self.Match" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Booking">
@@ -305,7 +307,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_matchId">
-          <End Role="Match" Type="Self.Match" Multiplicity="1" />
+          <End Role="Match" Type="Self.Match" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UserMatch" Type="Self.UserMatch" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Match">
@@ -622,16 +626,6 @@
           <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="Self.FK_skillId" FromRole="Skill" ToRole="User" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="TournamentRule">
           <Key>
             <PropertyRef Name="tournamentRuleId" />
@@ -693,7 +687,7 @@
           <Property Name="userId" Type="Int32" Nullable="false" />
           <Property Name="gameId" Type="Int32" Nullable="false" />
           <Property Name="score" Type="Int32" />
-          <NavigationProperty Name="Match" Relationship="Self.FK_matchId" FromRole="UserMatch" ToRole="Match" />
+          <NavigationProperty Name="Match" Relationship="PrimarySquashDBModel.FK_matchId" FromRole="UserMatch" ToRole="Match" />
           <NavigationProperty Name="User" Relationship="Self.FK_userId" FromRole="UserMatch" ToRole="User" />
         </EntityType>
         <Association Name="FK_accountId">
@@ -926,7 +920,6 @@
           <EntitySet Name="Organizations" EntityType="Self.Organization" />
           <EntitySet Name="Provinces" EntityType="Self.Province" />
           <EntitySet Name="Skills" EntityType="Self.Skill" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TournamentRules" EntityType="Self.TournamentRule" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="UserLadders" EntityType="Self.UserLadder" />

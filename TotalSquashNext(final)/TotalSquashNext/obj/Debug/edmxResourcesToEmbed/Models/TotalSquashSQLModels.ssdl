@@ -192,7 +192,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_bookingNumber">
-    <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Match" Type="Self.Match" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Booking">
@@ -300,7 +302,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_matchId">
-    <End Role="Match" Type="Self.Match" Multiplicity="1" />
+    <End Role="Match" Type="Self.Match" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="UserMatch" Type="Self.UserMatch" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Match">
