@@ -18,7 +18,6 @@
         <EntityTypeShape EntityType="PrimarySquashDBModel.Organization" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PrimarySquashDBModel.Province" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PrimarySquashDBModel.Skill" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PrimarySquashDBModel.sysdiagram" Width="1.5" PointX="7.75" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="PrimarySquashDBModel.TournamentRule" Width="1.5" PointX="9.75" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="PrimarySquashDBModel.User" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="PrimarySquashDBModel.UserLadder" Width="1.5" PointX="7.5" PointY="3.75" IsExpanded="true" />

@@ -137,11 +137,11 @@ namespace TotalSquashNext.Controllers
 
                     if (emailCheck > 0)
                     {
-                        TempData["Message"] = "Sorry, an account with that email already exists...";
+                        TempData["Message"] = "Sorry, an account with that email already exists.";
                     }
                     if (usernameCheck > 0)
                     {
-                        TempData["Message"] = "Sorry, you need to pick a different Username...";
+                        TempData["Message"] = "Sorry, you need to pick a different Username.";
                        
                     }
                     else
@@ -299,7 +299,8 @@ namespace TotalSquashNext.Controllers
         }
 
         // POST: Users/Delete/5
-        //Deletes account, redirects to Index of users. only admin can see the accounts so this is okay
+        //Deletes account, redirects to Verify Login - as user will no longer have an account.
+        //If the user is an administrator & isn't deleting their own account, returns to Index of users to continue managing the users. KT MARCH 4/16 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -308,6 +309,10 @@ namespace TotalSquashNext.Controllers
             db.Users.Remove(user);
             db.SaveChanges();
             TempData["message"] = "Account deleted.";
+            if (((TotalSquashNext.Models.User)Session["currentUser"]).accountId != 1 && ((TotalSquashNext.Models.User)Session["currentUser"]).id != id)
+            {
+                return RedirectToAction("Index");
+            }
             return RedirectToAction("VerifyLogin", "Login");
         }
 

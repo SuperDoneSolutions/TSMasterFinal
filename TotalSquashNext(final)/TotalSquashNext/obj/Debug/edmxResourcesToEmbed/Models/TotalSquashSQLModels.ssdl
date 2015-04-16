@@ -114,16 +114,6 @@
     <Property Name="skillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="TournamentRules">
     <Key>
       <PropertyRef Name="tournamentRuleId" />
@@ -202,7 +192,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_bookingNumber">
-    <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Match" Type="Self.Match" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Booking">
@@ -310,7 +302,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_matchId">
-    <End Role="Match" Type="Self.Match" Multiplicity="1" />
+    <End Role="Match" Type="Self.Match" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="UserMatch" Type="Self.UserMatch" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Match">
@@ -407,7 +401,6 @@
     <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Skill" EntityType="Self.Skill" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TournamentRules" EntityType="Self.TournamentRules" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserLadder" EntityType="Self.UserLadder" Schema="dbo" store:Type="Tables" />

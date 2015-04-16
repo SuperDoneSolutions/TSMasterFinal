@@ -87,7 +87,7 @@ namespace TotalSquashNext.Controllers
                 TempData["message"] = "Please login to continue.";
                 return RedirectToAction("VerifyLogin");
             }
-            
+
             const int RULES = 1;
 
             try
@@ -174,7 +174,7 @@ namespace TotalSquashNext.Controllers
                     }
                     else
                     {
-                        
+
                         TempData["Message"] = "Sorry friend, try another booking this one isn't available.";
 
                         ViewBag.bookingCode = new SelectList(db.BookingTypes, "bookingCode", "description", booking.bookingCode);
@@ -190,7 +190,7 @@ namespace TotalSquashNext.Controllers
                 TempData["Message"] = "ERROR - Please try again";
                 return View();
             }
-            
+
 
             ViewBag.bookingCode = new SelectList(db.BookingTypes, "bookingCode", "description", booking.bookingCode);
             ViewBag.bookingRulesId = new SelectList(db.BookingRules, "bookingRuleId", "bookingRuleId", booking.bookingRulesId);
@@ -198,75 +198,7 @@ namespace TotalSquashNext.Controllers
             ViewBag.courtId = new SelectList(db.Courts, "courtId", "courtDescription", booking.courtId);
             return View(booking);
         }
-
-        // GET: Booking/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (Session["currentUser"] == null)
-            {
-                TempData["message"] = "Please login to continue.";
-                return RedirectToAction("VerifyLogin");
-            }
-            if (((TotalSquashNext.Models.User)Session["currentUser"]).accountId != 1)
-            {
-                TempData["message"] = "You must be an administrator to access this page.";
-                return RedirectToAction("VerifyLogin", "Login");
-            }
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Booking booking = db.Bookings.Find(id);
-            if (booking == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.bookingCode = new SelectList(db.BookingTypes, "bookingCode", "description", booking.bookingCode);
-            ViewBag.bookingRulesId = new SelectList(db.BookingRules, "bookingRuleId", "bookingRuleId", booking.bookingRulesId);
-            ViewBag.bookingRulesId = new SelectList(db.BookingRules, "bookingRuleId", "bookingRuleId", booking.bookingRulesId);
-            ViewBag.courtId = new SelectList(db.Courts, "courtId", "courtDescription", booking.courtId);
-            return View(booking);
-        }
-
-        // POST: Booking/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "courtId,bookingNumber,bookingDate,bookingCode,userId,date,bookingRulesId")] Booking booking)
-        {
-            if (Session["currentUser"] == null)
-            {
-                TempData["message"] = "Please login to continue.";
-                return RedirectToAction("VerifyLogin");
-            }
-            if (((TotalSquashNext.Models.User)Session["currentUser"]).accountId != 1)
-            {
-                TempData["message"] = "You must be an administrator to access this page.";
-                return RedirectToAction("VerifyLogin", "Login");
-            }
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    db.Entry(booking).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-            catch
-            {
-                TempData["Message"] = "ERROR - Please try again";
-                return View();
-            }
-            
-            ViewBag.bookingCode = new SelectList(db.BookingTypes, "bookingCode", "description", booking.bookingCode);
-            ViewBag.bookingRulesId = new SelectList(db.BookingRules, "bookingRuleId", "bookingRuleId", booking.bookingRulesId);
-            ViewBag.bookingRulesId = new SelectList(db.BookingRules, "bookingRuleId", "bookingRuleId", booking.bookingRulesId);
-            ViewBag.courtId = new SelectList(db.Courts, "courtId", "courtDescription", booking.courtId);
-            return View(booking);
-        }
-
+        
         // GET: Booking/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -292,15 +224,38 @@ namespace TotalSquashNext.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            MatchController mc = new MatchController();
+
+
             if (Session["currentUser"] == null)
             {
                 TempData["message"] = "Please login to continue.";
                 return RedirectToAction("VerifyLogin");
             }
+
+
+
+            var matchIds = db.Matches.Where(x => x.bookingNumber == id).Select(x => x.matchId).ToList();
+            int matchId = matchIds[0];
+
+            var userMatch = db.UserMatches.Where(x => x.gameId == matchId);
+            var match = db.Matches.Where(x => x.matchId == matchId);
+            foreach (var u in userMatch)
+            {
+                db.UserMatches.Remove(u);
+            }
+
+            foreach (var m in match)
+            {
+                db.Matches.Remove(m);
+            }
+
+
             Booking booking = db.Bookings.Find(id);
             db.Bookings.Remove(booking);
+
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("LandingPage", "Login");
         }
 
         public ActionResult CheckIn(int bookingId)
@@ -310,9 +265,9 @@ namespace TotalSquashNext.Controllers
             db.Entry(booking).State = EntityState.Modified;
             db.SaveChanges();
             TempData["message"] = "Successfully checked in to your court booking!";
-            return RedirectToAction("LandingPage","Login");
-            
-            
+            return RedirectToAction("LandingPage", "Login");
+
+
         }
 
 
