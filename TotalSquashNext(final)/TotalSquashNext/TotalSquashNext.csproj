@@ -228,6 +228,7 @@
     <Compile Include="Models\Match.cs">
       <DependentUpon>TotalSquashSQLModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MetadataClasses\UserMetadataClass.cs" />
     <Compile Include="Models\Organization.cs">
       <DependentUpon>TotalSquashSQLModels.tt</DependentUpon>
     </Compile>
