@@ -127,168 +127,178 @@
         </div>
         <div>
 
-        <div class="container body-content">
-            <div class="row">
-                <div class="span8">
-                    <p><b>@TempData["message"]<b/></p>
-                    <div>
+            <div class="container body-content">
+                <div class="row">
+                    <div class="span8">
+                        <p><b>@TempData["message"]<b /></p>
+                        <div>
 
-                        <p>
-                            <img src=@Session["currentImage"]></br>
-                            Username: @(((TotalSquashNext.Models.User)Session["currentUser"]).username)</br>
-                            Level: @Session["currentSkill"]
-                        </p>
-                    </div>
-                </div>
-                <div class="span8">
-                    <div class="box">
-                        <div class="box-header">
-                            <i class="icon-book"></i>
-                            <h5>Book a Court</h5>
+                            <p>
+                                <img src=@Session["currentImage"]></br>
+                                Username: @(((TotalSquashNext.Models.User)Session["currentUser"]).username)</br>
+                                Level: @Session["currentSkill"]
+                            </p>
                         </div>
-                        <div class="box-content">
+                    </div>
+                    <div class="span8">
+                        <div class="box">
+                            <div class="box-header">
+                                <i class="icon-book"></i>
+                                <h5>Book a Court</h5>
+                            </div>
+                            <div class="box-content">
 
 
-                            <p>Pick a Date & Time</p>
+                                <p>Pick a Date & Time</p>
 
 
-                            @using (Html.BeginForm("BookACourt", "BookACourt", FormMethod.Post))
-                            {
+                                @using (Html.BeginForm("BookACourt", "BookACourt", FormMethod.Post))
+                                {
 
 
-                                <div class="container">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div style="display:block; margin:auto;" class="row">
-                                                <div class="col-md-8">
-                                                    <div id="datetimepicker12"></div>
+                                    <div class="container">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <div style="display:block; margin:auto;" class="row">
+                                                    <div class="col-md-8">
+                                                        <div id="datetimepicker12"></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <script type="text/javascript">
-                                        $(function () {
-                                            $('#datetimepicker12').datetimepicker({
-                                                inline: true,
-                                                sideBySide: true,
-                                                format: 'm/d/Y H:i:00',
+                                        <script type="text/javascript">
+                                            $(function () {
+                                                $('#datetimepicker12').datetimepicker({
+                                                    inline: true,
+                                                    sideBySide: true,
+                                                    format: 'm/d/Y H:i:00',
 
 
-                                                onChangeDateTime: function (dp, $input) {
-                                                    //alert($input.val())
-                                                    var chosenDateTime = document.getElementById('chosenDate');
-                                                    chosenDateTime.value = $input.val();
-                                                }
+                                                    onChangeDateTime: function (dp, $input) {
+                                                        //alert($input.val())
+                                                        var chosenDateTime = document.getElementById('chosenDate');
+                                                        chosenDateTime.value = $input.val();
+                                                    }
+                                                });
                                             });
-                                        });
 
 
-                                    </script>
-                                </div>
+                                        </script>
+                                    </div>
 
 
 
-                                <br />
-                                <input type="text" name="chosenDate" id="chosenDate" readonly="readonly" style="height:20px;" />
-                                <input type="submit" value="Check Date" class="btn-box" style="height:30px; margin-bottom:10px;" />
+                                    <br />
+                                    <input type="text" name="chosenDate" id="chosenDate" readonly="readonly" style="height:20px;" />
+                                    <input type="submit" value="Check Date" class="btn-box" style="height:30px; margin-bottom:10px;" />
 
-                            }
+                                }
 
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-            </div>
         <div>
-        <div class="row">
-            <div class="span8">
-                <div class="box pattern pattern-sandstone">
-                    <div class="box-header">
-                        <i class="icon-bar-chart"></i>
-                        <h5>Statistics</h5>
+            <div class="row">
+                <div class="span8">
+                    <div class="box pattern pattern-sandstone">
+                        <div class="box-header">
+                            <i class="icon-bar-chart"></i>
+                            <h5>Statistics</h5>
 
-                    </div>
-                    <div class="box-content box-table">
-                        <table id="sample-table" class="table table-hover table-bordered tablesorter">
+                        </div>
+                        <div class="box-content box-table">
+                            <table id="sample-table" class="table table-hover table-bordered tablesorter">
 
-                            <thead>
-                                <tr>
-                                    <th>Wins</th>
-                                    <th>Losses</th>
-                                    <th>Ties</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>@(((TotalSquashNext.Models.User)Session["currentUser"]).wins)</td>
-                                    <td>@(((TotalSquashNext.Models.User)Session["currentUser"]).losses)</td>
-                                    <td>
-                                        @(((TotalSquashNext.Models.User)Session["currentUser"]).ties)
-                                    </td>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th>Wins</th>
+                                        <th>Losses</th>
+                                        <th>Ties</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@(((TotalSquashNext.Models.User)Session["currentUser"]).wins)</td>
+                                        <td>@(((TotalSquashNext.Models.User)Session["currentUser"]).losses)</td>
+                                        <td>
+                                            @(((TotalSquashNext.Models.User)Session["currentUser"]).ties)
+                                        </td>
+                                    </tr>
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="span8">
-                <div class="box pattern pattern-sandstone">
-                    <div class="box-header">
-                        <i class="icon-table"></i>
-                        <h5>
-                            Booked Court Dates
-                        </h5>
-                    </div>
-                    <div class="box-content box-table">
-                        <table id="sample-table" class="table table-hover table-bordered tablesorter">
-                            <thead>
-                                <tr>
-                                    <th>Court</th>
-                                    <th>Date & Time</th>
-                                    <th>Cancel Booking</th>
-                                    <th>Check In</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>@(((TotalSquashNext.Models.Booking)Session["userBookingsOne"]).courtId)</td>
-                                    <td>@(((TotalSquashNext.Models.Booking)Session["userBookingsOne"]).date)</td>
-                                    <td class="td-actions">
-                                        <a href="@Url.Action("Delete","Booking",new {id=(((TotalSquashNext.Models.Booking)Session["userBookingsOne"]).bookingNumber)})" class="btn btn-small btn-danger">
-                                            <i class="btn-icon-only icon-remove"></i>
-                                        </a>
-                                    </td>
-                                    <td class="td-actions">
-                                        <a href="@Url.Action("CheckIn","Booking",new {bookingId=(((TotalSquashNext.Models.Booking)Session["userBookingsOne"]).bookingNumber)})" class="btn btn-small btn-danger">
-                                            <i class="btn-icon-only icon-check"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>@(((TotalSquashNext.Models.Booking)Session["userBookingsTwo"]).courtId)</td>
-                                    <td>@(((TotalSquashNext.Models.Booking)Session["userBookingsTwo"]).date)</td>
-                                    <td class="td-actions">
-                                        <a href="@Url.Action("Delete","Booking",new {id=(((TotalSquashNext.Models.Booking)Session["userBookingsTwo"]).bookingNumber)})" class="btn btn-small btn-danger">
-                                            <i class="btn-icon-only icon-remove"></i>
-                                        </a>
-                                    </td>
-                                    <td class="td-actions">
-                                        <a href="@Url.Action("CheckIn","Booking",new {bookingId=(((TotalSquashNext.Models.Booking)Session["userBookingsOne"]).bookingNumber)})" class="btn btn-small btn-danger">
-                                            <i class="btn-icon-only icon-check"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                <div class="span8">
+                    <div class="box pattern pattern-sandstone">
+                        <div class="box-header">
+                            <i class="icon-table"></i>
+                            <h5>
+                                Booked Court Dates
+                            </h5>
+                        </div>
+                        <div class="box-content box-table">
+                            <table id="sample-table" class="table table-hover table-bordered tablesorter">
+                                <thead>
+                                    <tr>
+                                        <th>Court</th>
+                                        <th>Date & Time</th>
+                                        <th>Cancel Booking</th>
+                                        <th>Check In</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        @if (((TotalSquashNext.Models.Booking)Session["userBookingsOne"]).courtId != 0)
+                                        {
+                                            <td>@(((TotalSquashNext.Models.Booking)Session["userBookingsOne"]).courtId)</td>
+                                            <td>@(((TotalSquashNext.Models.Booking)Session["userBookingsOne"]).date)</td>
+                                            <td class="td-actions">
+                                                <a href="@Url.Action("Delete","Booking",new {id=(((TotalSquashNext.Models.Booking)Session["userBookingsOne"]).bookingNumber)})" class="btn btn-small btn-danger">
+                                                    <i class="btn-icon-only icon-remove"></i>
+                                                </a>
+                                            </td>
+                                            <td class="td-actions">
+                                                <a href="@Url.Action("CheckIn","Booking",new {bookingId=(((TotalSquashNext.Models.Booking)Session["userBookingsOne"]).bookingNumber)})" class="btn btn-small btn-danger">
+                                                    <i class="btn-icon-only icon-check"></i>
+                                                </a>
+                                            </td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        @if (((TotalSquashNext.Models.Booking)Session["userBookingsTwo"]).courtId != 0)
+                                        {
 
-                            </tbody>
-                        </table>
+
+                                            <td>@(((TotalSquashNext.Models.Booking)Session["userBookingsTwo"]).courtId)</td>
+                                            <td>@(((TotalSquashNext.Models.Booking)Session["userBookingsTwo"]).date)</td>
+                                            <td class="td-actions">
+                                                <a href="@Url.Action("Delete","Booking",new {id=(((TotalSquashNext.Models.Booking)Session["userBookingsTwo"]).bookingNumber)})" class="btn btn-small btn-danger">
+                                                    <i class="btn-icon-only icon-remove"></i>
+                                                </a>
+                                            </td>
+                                            <td class="td-actions">
+                                                <a href="@Url.Action("CheckIn","Booking",new {bookingId=(((TotalSquashNext.Models.Booking)Session["userBookingsOne"]).bookingNumber)})" class="btn btn-small btn-danger">
+                                                    <i class="btn-icon-only icon-check"></i>
+                                                </a>
+                                            </td>
+                                        }
+                                    </tr>
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-            </div>
 
         <div class="row">
 
@@ -345,7 +355,7 @@
     <script src="../../js/jquery/jquery-chosen.js" type="text/javascript"></script>
     <script src="../../js/jquery/virtual-tour.js" type="text/javascript"></script>
     <script src="~/js/bootstrap/bootstrap-datepicker.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="~/Content/jquery.datetimepicker.css" /> 
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.datetimepicker.css" />
     <script src="~/js/jquery/jquery.js"></script>
     <script src="~/js/jquery/jquery.datetimepicker.js"></script>
 
