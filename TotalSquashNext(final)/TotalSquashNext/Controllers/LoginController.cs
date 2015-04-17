@@ -97,7 +97,7 @@ namespace TotalSquashNext.Controllers
                         {
                             if (isLocked)
                             {
-                                TempData["message"] = "Your account is locked until an administrator unlocks it.";
+                                TempData["message"] = "Your account is locked until an administrator unlocks it.<br />Use the Contact Us link to speed up this process.";
                                 return RedirectToAction("VerifyLogin", "Login");
                             }
 
