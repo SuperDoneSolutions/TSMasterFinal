@@ -228,6 +228,23 @@
     <Compile Include="Models\Match.cs">
       <DependentUpon>TotalSquashSQLModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MetadataClasses\AccountTypeMetadataClass.cs" />
+    <Compile Include="Models\MetadataClasses\BookingMetadataClass.cs" />
+    <Compile Include="Models\MetadataClasses\BookingRuleMetadataClass.cs" />
+    <Compile Include="Models\MetadataClasses\BookingTypeMetadataClass.cs" />
+    <Compile Include="Models\MetadataClasses\BuildingMetadataClass.cs" />
+    <Compile Include="Models\MetadataClasses\CountryMetadataClass.cs" />
+    <Compile Include="Models\MetadataClasses\CourtMetadataClass.cs" />
+    <Compile Include="Models\MetadataClasses\LadderMetadataClass.cs" />
+    <Compile Include="Models\MetadataClasses\LadderRuleMetadataClass.cs" />
+    <Compile Include="Models\MetadataClasses\MatchMetadataClass.cs" />
+    <Compile Include="Models\MetadataClasses\OrganizationMetadataClass.cs" />
+    <Compile Include="Models\MetadataClasses\ProvinceMetadataClass.cs" />
+    <Compile Include="Models\MetadataClasses\SkillMetadataClass.cs" />
+    <Compile Include="Models\MetadataClasses\TournamentRuleMetadataClass.cs" />
+    <Compile Include="Models\MetadataClasses\UserLadderMetadataClass.cs" />
+    <Compile Include="Models\MetadataClasses\UserMatchMetadataClass.cs" />
+    <Compile Include="Models\MetadataClasses\UserMetadataClass.cs" />
     <Compile Include="Models\Organization.cs">
       <DependentUpon>TotalSquashSQLModels.tt</DependentUpon>
     </Compile>

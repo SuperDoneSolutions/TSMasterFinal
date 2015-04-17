@@ -456,12 +456,6 @@ C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TotalSquashNext\bin
 C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TotalSquashNext\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TotalSquashNext\obj\Debug\TotalSquashNext.dll
 C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TotalSquashNext\obj\Debug\TotalSquashNext.pdb
-C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TotalSquashNext\bin\Postal.dll
-C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TotalSquashNext\bin\RazorEngine.dll
-C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TotalSquashNext\bin\Postal.xml
-C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TotalSquashNext\bin\RazorEngine.pdb
-C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TotalSquashNext\bin\RazorEngine.xml
-C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TotalSquashNext\bin\Antlr3.Runtime.pdb
 C:\Users\Kirsti\Desktop\TSM\TotalSquashNext(final)\TotalSquashNext\bin\TotalSquashNext.dll.config
 C:\Users\Kirsti\Desktop\TSM\TotalSquashNext(final)\TotalSquashNext\bin\TotalSquashNext.dll
 C:\Users\Kirsti\Desktop\TSM\TotalSquashNext(final)\TotalSquashNext\bin\TotalSquashNext.pdb
@@ -572,3 +566,4 @@ C:\Users\Kirsti\Desktop\TSMasterFinal\TSM\TotalSquashNext(final)\TotalSquashNext
 C:\Users\Kirsti\Desktop\TSMasterFinal\TSM\TotalSquashNext(final)\TotalSquashNext\obj\Debug\TotalSquashNext.csprojResolveAssemblyReference.cache
 C:\Users\Kirsti\Desktop\TSMasterFinal\TSM\TotalSquashNext(final)\TotalSquashNext\obj\Debug\TotalSquashNext.dll
 C:\Users\Kirsti\Desktop\TSMasterFinal\TSM\TotalSquashNext(final)\TotalSquashNext\obj\Debug\TotalSquashNext.pdb
+C:\Users\Kirsti\Desktop\TSMasterFinal\TotalSquashNext(final)\TotalSquashNext\obj\Debug\TotalSquashNext.csprojResolveAssemblyReference.cache
