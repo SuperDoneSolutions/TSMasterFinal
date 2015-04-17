@@ -21,7 +21,16 @@
 .dl-horizontal dt {
     white-space: normal;
 }
-
+.login input{
+    margin-top:0;
+    margin-bottom:0;
+}
+/*@media (min-width: 465px) {
+        .col-md-6{
+            
+            width:100%;
+        }
+}*/
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
