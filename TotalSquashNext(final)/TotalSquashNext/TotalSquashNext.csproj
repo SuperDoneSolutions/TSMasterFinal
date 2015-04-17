@@ -301,6 +301,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\1fc5e1f.jpg" />
     <Content Include="Images\anon.png" />
+    <Content Include="Images\background.jpg" />
     <Content Include="Images\drop-target.png" />
     <Content Include="Images\totalSquash-favicon.ico" />
     <Content Include="Images\totalSquashLogo.png" />
