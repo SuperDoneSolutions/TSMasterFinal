@@ -1,10 +1,14 @@
 ﻿body {
-    background: url('../Images/background.jpg') fixed no-repeat !important;
+    background: url('../Images/background.jpg') fixed no-repeat;
+    
     background-size: contain;
     
 }
 
-
+/*.login{
+     background:url('../Images/oldtimeysquash.jpg') fixed no-repeat center !important;
+      background-size: cover;
+}*/
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;

@@ -303,8 +303,10 @@
     <Content Include="Images\anon.png" />
     <Content Include="Images\background.jpg" />
     <Content Include="Images\drop-target.png" />
+    <Content Include="Images\oldtimeysquash.jpg" />
     <Content Include="Images\totalSquash-favicon.ico" />
     <Content Include="Images\totalSquashLogo.png" />
+    <Content Include="Images\transparent-bkgnd.jpg" />
     <Content Include="Images\TSheader.png" />
     <Content Include="Images\TSheader02.png" />
     <Content Include="js\bootstrap\bootstrap-affix.js" />
