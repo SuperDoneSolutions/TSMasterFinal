@@ -37,14 +37,14 @@
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div id="container row">
-                <div class="col-xs-6">
+                <div class="col-md-6 firstDiv" >
                     <a href="@Url.Action("VerifyLogin","Login")" class="brand"><img src="~/Images/TSheader02.png" style="padding-top: 10px;" /></a>
                 </div>
                 <div class="col-xs-6">
 
 
 
-                    <form class="login">
+                    <form method="post" class="login">
 
                         @Html.AntiForgeryToken()
                         <div class="col-md-4">
@@ -79,7 +79,7 @@
                             <br>
                             <p style="text-align:center;"><b>@Html.Raw(@TempData["message"])</b></p> <!--added tempdata so that if there is a login error it will show up KT april 6-->
                             <div class="box">
-                                <!--Took out <a> because we don't need it to be a link KT apr 5 -->
+                                
                                 <img style="margin:auto; display:block;" src="../../Images/totalSquashLogo.png">
                                 <br />
 
@@ -88,22 +88,7 @@
                             <br>
                             <br />
                             <br>
-                            @*<div class="container">
-                                    <div class="box-header">
-                                        <h5>YMCA - Cambridge: News</h5>
-                                    </div>
-                                    <div class="box-content">
-                                        <p>
-                                            Here is some sample news text, all kinds of stuff happens all of the time and this will be a good spot to keep users up to date about whats going on.
-                                        </p>
-                                        <p>
-                                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </p>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                        </p>
-                                    </div>
-                                </div>*@
+
                         </div>
                         <footer class="application-footer">
                             <div class="container">

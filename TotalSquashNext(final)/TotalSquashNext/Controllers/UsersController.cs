@@ -106,6 +106,11 @@ namespace TotalSquashNext.Controllers
         public ActionResult Create()
         {
             Session["photoUpload"] = null;
+            ViewBag.gender = new SelectList(new[]{
+                new SelectListItem{Value="M",Text="Male"},
+                new SelectListItem{Value="F",Text="Female"},
+                new SelectListItem{Value="O",Text="Prefer Not To Disclose"}
+            }, "Value", "Text");
             ViewBag.accountId = new SelectList(db.AccountTypes, "accountId", "description");
             ViewBag.countryId = new SelectList(db.Countries, "countryId", "countryName");
             ViewBag.organizationId = new SelectList(db.Organizations, "organizationId", "orgName");
@@ -172,7 +177,11 @@ namespace TotalSquashNext.Controllers
                 TempData["Message"] = "ERROR - Please try again";
                 return View();
             }
-
+            ViewBag.gender = new SelectList(new[]{
+                new SelectListItem{Value="M",Text="Male"},
+                new SelectListItem{Value="F",Text="Female"},
+                new SelectListItem{Value="O",Text="Prefer Not To Disclose"}
+            }, "Value", "Text");
             ViewBag.accountId = new SelectList(db.AccountTypes, "accountId", "description", user.accountId);
             ViewBag.countryId = new SelectList(db.Countries, "countryId", "countryName", user.countryId);
             ViewBag.organizationId = new SelectList(db.Organizations, "organizationId", "orgName", user.organizationId);

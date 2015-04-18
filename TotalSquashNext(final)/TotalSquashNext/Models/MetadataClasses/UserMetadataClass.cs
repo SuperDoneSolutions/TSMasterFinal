@@ -79,7 +79,7 @@ namespace TotalSquashNext.Models
         public int organizationId { get; set; }
 
         [Display(Name = "Postal Code")]
-        [RegularExpression(@"[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d", ErrorMessage = "Please enter like: L7N2Y2")]
+        [RegularExpression(@"[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d", ErrorMessage = "Please enter in the form: L7N2Y2")]
         public string postalCode { get; set; }
 
         [Display(Name = "Strike")]
