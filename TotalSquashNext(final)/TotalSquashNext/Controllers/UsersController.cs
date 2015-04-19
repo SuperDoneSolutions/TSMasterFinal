@@ -72,7 +72,7 @@ namespace TotalSquashNext.Controllers
                 TempData["message"] = "You must be an administrator to access this page.";
                 return RedirectToAction("VerifyLogin", "Login");
             }
-            var users = db.Users.Include(u => u.AccountType).Include(u => u.Country).Include(u => u.Organization).Include(u => u.Province).Include(u => u.Skill).OrderByDescending(x=>x.locked);
+            var users = db.Users.Include(u => u.AccountType).Include(u => u.Country).Include(u => u.Organization).Include(u => u.Province).Include(u => u.Skill).OrderByDescending(x => x.locked);
             return View(users.ToList());
         }
 
@@ -128,9 +128,10 @@ namespace TotalSquashNext.Controllers
         {
             SimplerAES ep = new SimplerAES();
 
-            try
+
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                try
                 {
                     int emailCheck = (from x in db.Users
                                       where x.emailAddress == user.emailAddress
@@ -144,10 +145,10 @@ namespace TotalSquashNext.Controllers
                     {
                         TempData["Message"] = "Sorry, an account with that email already exists.";
                     }
-                    if (usernameCheck > 0)
+                    else if (usernameCheck > 0)
                     {
                         TempData["Message"] = "Sorry, you need to pick a different Username.";
-                       
+
                     }
                     else
                     {
@@ -164,19 +165,23 @@ namespace TotalSquashNext.Controllers
                             user.photo = Session["photoUpload"].ToString();
                         }
                         user.strike = 0;
+                        user.wins = 0;
+                        user.losses = 0;
+                        user.ties = 0;
                         db.Users.Add(user);
                         db.SaveChanges();
                         TempData["message"] = "Account created succesfully. Please login to continue.";
                         return RedirectToAction("VerifyLogin", "Login");
                     }
                 }
+                catch
+                {
+                    TempData["Message"] = "ERROR - Please try again";
+                    return View();
+                }
+
             }
 
-            catch
-            {
-                TempData["Message"] = "ERROR - Please try again";
-                return View();
-            }
             ViewBag.gender = new SelectList(new[]{
                 new SelectListItem{Value="M",Text="Male"},
                 new SelectListItem{Value="F",Text="Female"},
@@ -189,7 +194,29 @@ namespace TotalSquashNext.Controllers
             ViewBag.skillId = new SelectList(db.Skills, "skillId", "description", user.skillId);
             return View(user);
         }
+        public ActionResult LockUnlock(int? id)
+        {
+            User user = db.Users.Find(id);
+            if(user.locked)
+            {
+                user.locked = false;
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                TempData["message"] = "Lock status changed for this user.";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                user.locked = true;
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                TempData["message"] = "Lock status changed for this user.";
+                return RedirectToAction("Index");
+            }
+            
 
+            
+        }
         // GET: Users/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -222,9 +249,9 @@ namespace TotalSquashNext.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,username,skillId,password,photo,wins,losses,ties,firstName,lastName,streetAddress,city,provinceId,postalCode,countryId,phoneNumber,emailAddress,gender,birthDate,accountId,locked,organizationId")] User user)
+        public ActionResult Edit([Bind(Include = "id,username,skillId,password,photo,firstName,lastName,streetAddress,city,provinceId,postalCode,countryId,phoneNumber,emailAddress,gender,birthDate,accountId,locked,organizationId")] User user)
         {
-            
+
             SimplerAES ep = new SimplerAES();
             if (Session["currentUser"] == null)
             {
@@ -237,36 +264,36 @@ namespace TotalSquashNext.Controllers
 
 
                 try
+                {
+                    WebImage image = WebImage.GetImageFromRequest();
+                    if (image != null)
+                    {
+                        String sImagePath = Request.PhysicalApplicationPath + "App_Data/" + Path.GetFileName(image.FileName);
+                        image.Resize(width: 320, height: 320, preserveAspectRatio: true, preventEnlarge: true);
+
+
+                        image.Save(sImagePath);
+
+                        // now we will add it to cloudinary
+                        Cloudinary cloudinary = new Cloudinary("cloudinary://347569431798466:H0Y5lsH8s9kgsklpVyOQtdA-0MY@dmxlkkyrk");
+                        CloudinaryDotNet.Actions.ImageUploadParams uploadParams = new CloudinaryDotNet.Actions.ImageUploadParams()
                         {
-                            WebImage image = WebImage.GetImageFromRequest();
-                            if (image != null)
-                            {
-                                String sImagePath = Request.PhysicalApplicationPath + "App_Data/" + Path.GetFileName(image.FileName);
-                                image.Resize(width: 320, height: 320, preserveAspectRatio: true, preventEnlarge: true);
+                            File = new CloudinaryDotNet.Actions.FileDescription(sImagePath)
+                        };
+
+                        CloudinaryDotNet.Actions.ImageUploadResult uploadResult = cloudinary.Upload(uploadParams);
+                        string url = cloudinary.Api.UrlImgUp.BuildUrl(String.Format("{0}.{1}", uploadResult.PublicId, uploadResult.Format));
+                        Session["photoEdit"] = url;
+                        System.IO.File.Delete(sImagePath);
+                        user.photo = url;
 
 
-                                image.Save(sImagePath);
-
-                                // now we will add it to cloudinary
-                                Cloudinary cloudinary = new Cloudinary("cloudinary://347569431798466:H0Y5lsH8s9kgsklpVyOQtdA-0MY@dmxlkkyrk");
-                                CloudinaryDotNet.Actions.ImageUploadParams uploadParams = new CloudinaryDotNet.Actions.ImageUploadParams()
-                                {
-                                    File = new CloudinaryDotNet.Actions.FileDescription(sImagePath)
-                                };
-
-                                CloudinaryDotNet.Actions.ImageUploadResult uploadResult = cloudinary.Upload(uploadParams);
-                                string url = cloudinary.Api.UrlImgUp.BuildUrl(String.Format("{0}.{1}", uploadResult.PublicId, uploadResult.Format));
-                                Session["photoEdit"] = url;
-                                System.IO.File.Delete(sImagePath);
-                                user.photo = url;
-
-
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            TempData["message"] = "TRY AGAIN!!!"; 
-                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    TempData["message"] = "TRY AGAIN!!!";
+                }
 
                 user.wins = (((TotalSquashNext.Models.User)Session["currentUser"]).wins);
                 user.losses = (((TotalSquashNext.Models.User)Session["currentUser"]).losses);
@@ -318,7 +345,7 @@ namespace TotalSquashNext.Controllers
             db.Users.Remove(user);
             db.SaveChanges();
             TempData["message"] = "Account deleted.";
-            if (((TotalSquashNext.Models.User)Session["currentUser"]).accountId != 1 && ((TotalSquashNext.Models.User)Session["currentUser"]).id != id)
+            if (((TotalSquashNext.Models.User)Session["currentUser"]).accountId == 1 && ((TotalSquashNext.Models.User)Session["currentUser"]).id != id)
             {
                 return RedirectToAction("Index");
             }

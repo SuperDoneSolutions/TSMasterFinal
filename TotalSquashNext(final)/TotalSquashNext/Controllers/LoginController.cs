@@ -73,12 +73,16 @@ namespace TotalSquashNext.Controllers
         {
             try
             {
-
+                if(user.emailAddress == null || user.emailAddress.Trim() =="" || user.password == null || user.password.Trim() == "")
+                {
+                    TempData["message"] = "Please enter both an email address and password.";
+                    return RedirectToAction("VerifyLogin", "Login");
+                }
 
                 SimplerAES ep = new SimplerAES();
 
-                if (ModelState.IsValid)
-                {
+               // if (ModelState.IsValid) took this out because it was trying to draw the whole model for some reason. Works better now. Just need to check for nulls.
+               // {
 
                     string tempEmailVerify = user.emailAddress;
                     string tempPassVerify = ep.Encrypt(user.password);
@@ -140,25 +144,25 @@ namespace TotalSquashNext.Controllers
                         }
                         else
                         {
-                            TempData["message"] = "Incorrect email or password. Please try again.";
+                            TempData["message"] = "Incorrect email or password. Please try again, or register as a new user!";
                             return RedirectToAction("VerifyLogin", "Login");
                         }
 
                     }
                     else
                     {
-                        TempData["message"] = "Incorrect email or password. Please try again.";
+                        TempData["message"] = "Incorrect email or password. Please try again, or register as a new user!";
                         return RedirectToAction("VerifyLogin", "Login");
                     }
                 }
-            }
+           // }
             catch (Exception ex)
             {
-                TempData["message"] = "Incorrect email or password. Please try again.";
+                TempData["message"] = "I'm sorry, something went wrong. Try again, or contact us with the error:" + ex.GetBaseException().Message;
                 return View();
             }
 
-            TempData["message"] = "Incorrect email or password. Please try again.";
+            TempData["message"] = "Incorrect email or password. Please try again, or register as a new user!";
             return View();
         }
 

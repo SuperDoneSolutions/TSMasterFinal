@@ -133,7 +133,7 @@
             @Html.DisplayFor(modelItem => item.Skill.description)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Lock/Unlock Account", "LockUnlock", new { id=item.id }) |
             @Html.ActionLink("Details", "Details", new { id=item.id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.id })
         </td>
