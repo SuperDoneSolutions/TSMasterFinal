@@ -197,7 +197,7 @@ namespace TotalSquashNext.Controllers
         public ActionResult LockUnlock(int? id)
         {
             User user = db.Users.Find(id);
-            if(user.locked)
+            if (user.locked)
             {
                 user.locked = false;
                 db.Entry(user).State = EntityState.Modified;
@@ -213,9 +213,9 @@ namespace TotalSquashNext.Controllers
                 TempData["message"] = "Lock status changed for this user.";
                 return RedirectToAction("Index");
             }
-            
 
-            
+
+
         }
         // GET: Users/Edit/5
         public ActionResult Edit(int? id)
@@ -236,6 +236,11 @@ namespace TotalSquashNext.Controllers
                 return HttpNotFound();
             }
             Session["photoEdit"] = null;
+            ViewBag.gender = new SelectList(new[]{
+                new SelectListItem{Value="M",Text="Male"},
+                new SelectListItem{Value="F",Text="Female"},
+                new SelectListItem{Value="O",Text="Prefer Not To Disclose"}
+            }, "Value", "Text");
             ViewBag.accountId = new SelectList(db.AccountTypes, "accountId", "description", user.accountId);
             ViewBag.countryId = new SelectList(db.Countries, "countryId", "countryName", user.countryId);
             ViewBag.organizationId = new SelectList(db.Organizations, "organizationId", "orgName", user.organizationId);
@@ -258,53 +263,117 @@ namespace TotalSquashNext.Controllers
                 TempData["message"] = "Please login to continue.";
                 return RedirectToAction("VerifyLogin", "Login");
             }
-
-            if (ModelState.IsValid)
+            try
             {
-
-
-                try
+                if (ModelState.IsValid)
                 {
-                    WebImage image = WebImage.GetImageFromRequest();
-                    if (image != null)
+
+                    int emailCheck = (from x in db.Users
+                                      where x.emailAddress == user.emailAddress
+                                      where x.id != user.id
+                                      select x.emailAddress).Count();
+
+                    int usernameCheck = (from x in db.Users
+                                         where x.username == user.username
+                                         where x.id != user.id
+                                         select x.username).Count();
+
+                    if (emailCheck > 0)
                     {
-                        String sImagePath = Request.PhysicalApplicationPath + "App_Data/" + Path.GetFileName(image.FileName);
-                        image.Resize(width: 320, height: 320, preserveAspectRatio: true, preventEnlarge: true);
-
-
-                        image.Save(sImagePath);
-
-                        // now we will add it to cloudinary
-                        Cloudinary cloudinary = new Cloudinary("cloudinary://347569431798466:H0Y5lsH8s9kgsklpVyOQtdA-0MY@dmxlkkyrk");
-                        CloudinaryDotNet.Actions.ImageUploadParams uploadParams = new CloudinaryDotNet.Actions.ImageUploadParams()
-                        {
-                            File = new CloudinaryDotNet.Actions.FileDescription(sImagePath)
-                        };
-
-                        CloudinaryDotNet.Actions.ImageUploadResult uploadResult = cloudinary.Upload(uploadParams);
-                        string url = cloudinary.Api.UrlImgUp.BuildUrl(String.Format("{0}.{1}", uploadResult.PublicId, uploadResult.Format));
-                        Session["photoEdit"] = url;
-                        System.IO.File.Delete(sImagePath);
-                        user.photo = url;
-
+                        TempData["Message"] = "Sorry, an account with that email already exists.";
+                        ViewBag.gender = new SelectList(new[]{
+                new SelectListItem{Value="M",Text="Male"},
+                new SelectListItem{Value="F",Text="Female"},
+                new SelectListItem{Value="O",Text="Prefer Not To Disclose"}
+            }, "Value", "Text");
+                        ViewBag.accountId = new SelectList(db.AccountTypes, "accountId", "description", user.accountId);
+                        ViewBag.countryId = new SelectList(db.Countries, "countryId", "countryName", user.countryId);
+                        ViewBag.organizationId = new SelectList(db.Organizations, "organizationId", "orgName", user.organizationId);
+                        ViewBag.provinceId = new SelectList(db.Provinces, "provinceId", "provinceName", user.provinceId);
+                        ViewBag.skillId = new SelectList(db.Skills, "skillId", "description", user.skillId);
+                        return View(user);
+                    }
+                    else if (usernameCheck > 0)
+                    {
+                        TempData["Message"] = "Sorry, you need to pick a different Username.";
+                        ViewBag.gender = new SelectList(new[]{
+                new SelectListItem{Value="M",Text="Male"},
+                new SelectListItem{Value="F",Text="Female"},
+                new SelectListItem{Value="O",Text="Prefer Not To Disclose"}
+            }, "Value", "Text");
+                        ViewBag.accountId = new SelectList(db.AccountTypes, "accountId", "description", user.accountId);
+                        ViewBag.countryId = new SelectList(db.Countries, "countryId", "countryName", user.countryId);
+                        ViewBag.organizationId = new SelectList(db.Organizations, "organizationId", "orgName", user.organizationId);
+                        ViewBag.provinceId = new SelectList(db.Provinces, "provinceId", "provinceName", user.provinceId);
+                        ViewBag.skillId = new SelectList(db.Skills, "skillId", "description", user.skillId);
+                        return View(user);
 
                     }
-                }
-                catch (Exception e)
-                {
-                    TempData["message"] = "TRY AGAIN!!!";
-                }
+                    else
+                    {
 
-                user.wins = (((TotalSquashNext.Models.User)Session["currentUser"]).wins);
-                user.losses = (((TotalSquashNext.Models.User)Session["currentUser"]).losses);
-                user.ties = (((TotalSquashNext.Models.User)Session["currentUser"]).ties);
-                user.emailAddress = (((TotalSquashNext.Models.User)Session["currentUser"]).emailAddress);
-                user.password = (((TotalSquashNext.Models.User)Session["currentUser"]).password);
-                db.Entry(user).State = EntityState.Modified;
 
-                db.SaveChanges();
-                return RedirectToAction("LandingPage", "Login");
+                        WebImage image = WebImage.GetImageFromRequest();
+                        if (image != null)
+                        {
+                            String sImagePath = Request.PhysicalApplicationPath + "App_Data/" + Path.GetFileName(image.FileName);
+                            image.Resize(width: 320, height: 320, preserveAspectRatio: true, preventEnlarge: true);
+
+
+                            image.Save(sImagePath);
+
+                            // now we will add it to cloudinary
+                            Cloudinary cloudinary = new Cloudinary("cloudinary://347569431798466:H0Y5lsH8s9kgsklpVyOQtdA-0MY@dmxlkkyrk");
+                            CloudinaryDotNet.Actions.ImageUploadParams uploadParams = new CloudinaryDotNet.Actions.ImageUploadParams()
+                            {
+                                File = new CloudinaryDotNet.Actions.FileDescription(sImagePath)
+                            };
+
+                            CloudinaryDotNet.Actions.ImageUploadResult uploadResult = cloudinary.Upload(uploadParams);
+                            string url = cloudinary.Api.UrlImgUp.BuildUrl(String.Format("{0}.{1}", uploadResult.PublicId, uploadResult.Format));
+                            Session["photoEdit"] = url;
+                            System.IO.File.Delete(sImagePath);
+                            user.photo = url;
+
+
+                        }
+                        //user.wins = (((TotalSquashNext.Models.User)Session["currentUser"]).wins);
+                        //user.losses = (((TotalSquashNext.Models.User)Session["currentUser"]).losses);
+                        //user.ties = (((TotalSquashNext.Models.User)Session["currentUser"]).ties);
+                        //user.strike = (((TotalSquashNext.Models.User)Session["currentUser"]).strike);
+                        //user.password = (((TotalSquashNext.Models.User)Session["currentUser"]).password);
+
+                        db.Entry(user).State = EntityState.Modified;
+
+                        db.SaveChanges();
+                        TempData["message"] = "Account edit successful.";
+                        return RedirectToAction("LandingPage", "Login");
+                    }
+                }
+                ViewBag.gender = new SelectList(new[]{
+                new SelectListItem{Value="M",Text="Male"},
+                new SelectListItem{Value="F",Text="Female"},
+                new SelectListItem{Value="O",Text="Prefer Not To Disclose"}
+            }, "Value", "Text");
+                ViewBag.accountId = new SelectList(db.AccountTypes, "accountId", "description", user.accountId);
+                ViewBag.countryId = new SelectList(db.Countries, "countryId", "countryName", user.countryId);
+                ViewBag.organizationId = new SelectList(db.Organizations, "organizationId", "orgName", user.organizationId);
+                ViewBag.provinceId = new SelectList(db.Provinces, "provinceId", "provinceName", user.provinceId);
+                ViewBag.skillId = new SelectList(db.Skills, "skillId", "description", user.skillId);
+                return View(user);
+
+
             }
+
+            catch (Exception e)
+            {
+                TempData["message"] = "TRY AGAIN!!!";
+            }
+            ViewBag.gender = new SelectList(new[]{
+                new SelectListItem{Value="M",Text="Male"},
+                new SelectListItem{Value="F",Text="Female"},
+                new SelectListItem{Value="O",Text="Prefer Not To Disclose"}
+            }, "Value", "Text");
             ViewBag.accountId = new SelectList(db.AccountTypes, "accountId", "description", user.accountId);
             ViewBag.countryId = new SelectList(db.Countries, "countryId", "countryName", user.countryId);
             ViewBag.organizationId = new SelectList(db.Organizations, "organizationId", "orgName", user.organizationId);

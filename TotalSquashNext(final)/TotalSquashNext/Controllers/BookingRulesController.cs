@@ -159,7 +159,8 @@ namespace TotalSquashNext.Controllers
                 {
                     db.Entry(bookingRule).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    TempData["message"] = "Booking rules updated.";
+                    return RedirectToAction("AdministrativeTools","Login");
                 }
             }
             catch

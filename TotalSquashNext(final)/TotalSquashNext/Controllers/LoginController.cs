@@ -73,7 +73,7 @@ namespace TotalSquashNext.Controllers
         {
             try
             {
-                if(user.emailAddress == null || user.emailAddress.Trim() =="" || user.password == null || user.password.Trim() == "")
+                if (user.emailAddress == null || user.emailAddress.Trim() == "" || user.password == null || user.password.Trim() == "")
                 {
                     TempData["message"] = "Please enter both an email address and password.";
                     return RedirectToAction("VerifyLogin", "Login");
@@ -81,72 +81,65 @@ namespace TotalSquashNext.Controllers
 
                 SimplerAES ep = new SimplerAES();
 
-               // if (ModelState.IsValid) took this out because it was trying to draw the whole model for some reason. Works better now. Just need to check for nulls.
-               // {
+                // if (ModelState.IsValid) took this out because it was trying to draw the whole model for some reason. Works better now. Just need to check for nulls.
+                // {
 
-                    string tempEmailVerify = user.emailAddress;
-                    string tempPassVerify = ep.Encrypt(user.password);
+                string tempEmailVerify = user.emailAddress;
+                string tempPassVerify = ep.Encrypt(user.password);
 
-                    if (db.Users.Where(x => x.emailAddress == tempEmailVerify).Count() > 0)
+                if (db.Users.Where(x => x.emailAddress == tempEmailVerify).Count() > 0)
+                {
+                    var passHolder = (from x in db.Users
+                                      where x.emailAddress == tempEmailVerify
+                                      select x.password).Single();
+                    var isLocked = (from x in db.Users
+                                    where x.emailAddress == tempEmailVerify
+                                    select x.locked).Single();
+
+
+                    if (passHolder.ToString() == tempPassVerify)
                     {
-                        var passHolder = (from x in db.Users
-                                          where x.emailAddress == tempEmailVerify
-                                          select x.password).Single();
-                        var isLocked = (from x in db.Users
-                                        where x.emailAddress == tempEmailVerify
-                                        select x.locked).Single();
-
-
-                        if (passHolder.ToString() == tempPassVerify)
+                        if (isLocked)
                         {
-                            if (isLocked)
-                            {
-                                TempData["message"] = "Your account is locked until an administrator unlocks it.<br />Use the Contact Us link to speed up this process.";
-                                return RedirectToAction("VerifyLogin", "Login");
-                            }
-
-                            var currentUser = (from x in db.Users
-                                               where x.emailAddress == tempEmailVerify
-                                               select x).ToList();
-
-                            User selectedUser = currentUser[0];
-
-                            int selectedOrg = selectedUser.organizationId;
-                            int selectedSkill = selectedUser.skillId;
-                            int selectedAccount = selectedUser.accountId;
-                            string selectedImage = selectedUser.photo;
-
-
-                            Session["currentOrg"] = (from x in db.Organizations
-                                                     where x.organizationId == selectedOrg
-                                                     select x.orgName).Single();
-                            Session["currentSkill"] = (from x in db.Skills
-                                                       where x.skillId == selectedSkill
-                                                       select x.description).Single();
-                            Session["currentAccount"] = (from x in db.AccountTypes
-                                                         where x.accountId == selectedAccount
-                                                         select x.description).Single();
-
-                            Session["currentUser"] = selectedUser;
-
-                            Session["currentImage"] = (from x in db.Users
-                                                       where x.emailAddress == tempEmailVerify
-                                                       select x.photo).Single();
-
-                            if (Session["currentImage"] == null)
-                            {
-                                Session["currentImage"] = "../../Images/anon.png";
-                            }
-
-
-                            return RedirectToAction("LandingPage");
-
-                        }
-                        else
-                        {
-                            TempData["message"] = "Incorrect email or password. Please try again, or register as a new user!";
+                            TempData["message"] = "Your account is locked until an administrator unlocks it.<br />Use the Contact Us link to speed up this process.";
                             return RedirectToAction("VerifyLogin", "Login");
                         }
+
+                        var currentUser = (from x in db.Users
+                                           where x.emailAddress == tempEmailVerify
+                                           select x).ToList();
+
+                        User selectedUser = currentUser[0];
+
+                        int selectedOrg = selectedUser.organizationId;
+                        int selectedSkill = selectedUser.skillId;
+                        int selectedAccount = selectedUser.accountId;
+                        string selectedImage = selectedUser.photo;
+
+
+                        Session["currentOrg"] = (from x in db.Organizations
+                                                 where x.organizationId == selectedOrg
+                                                 select x.orgName).Single();
+                        Session["currentSkill"] = (from x in db.Skills
+                                                   where x.skillId == selectedSkill
+                                                   select x.description).Single();
+                        Session["currentAccount"] = (from x in db.AccountTypes
+                                                     where x.accountId == selectedAccount
+                                                     select x.description).Single();
+
+                        Session["currentUser"] = selectedUser;
+
+                        Session["currentImage"] = (from x in db.Users
+                                                   where x.emailAddress == tempEmailVerify
+                                                   select x.photo).Single();
+
+                        if (Session["currentImage"] == null)
+                        {
+                            Session["currentImage"] = "../../Images/anon.png";
+                        }
+
+
+                        return RedirectToAction("LandingPage");
 
                     }
                     else
@@ -154,8 +147,15 @@ namespace TotalSquashNext.Controllers
                         TempData["message"] = "Incorrect email or password. Please try again, or register as a new user!";
                         return RedirectToAction("VerifyLogin", "Login");
                     }
+
                 }
-           // }
+                else
+                {
+                    TempData["message"] = "Incorrect email or password. Please try again, or register as a new user!";
+                    return RedirectToAction("VerifyLogin", "Login");
+                }
+            }
+            // }
             catch (Exception ex)
             {
                 TempData["message"] = "I'm sorry, something went wrong. Try again, or contact us with the error:" + ex.GetBaseException().Message;
@@ -185,7 +185,7 @@ namespace TotalSquashNext.Controllers
             User selectedUser = currentUser[0];
             Session["currentUser"] = selectedUser;
 
-            
+
 
             Booking defaultBook = new Booking();
             defaultBook.date = DateTime.Today;
@@ -206,10 +206,10 @@ namespace TotalSquashNext.Controllers
                                   select x).FirstOrDefault();
 
             var userBookingTwoAll = (from x in db.Bookings
-                                  where user == x.userId
-                                  orderby x.bookingNumber descending
-                                  select x).ToList();
-            
+                                     where user == x.userId
+                                     orderby x.bookingNumber descending
+                                     select x).ToList();
+
 
             if (userBookingOne != null)
             {
@@ -254,8 +254,14 @@ namespace TotalSquashNext.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ForgotPasswordSecurityCheck([Bind(Include = "emailAddress,birthDate,postalCode")] User user)
         {
-            if (ModelState.IsValid)
+            try
             {
+                if (user.emailAddress == null || user.birthDate == null || user.postalCode == null)
+                {
+                    TempData["message"] = "Please enter values in all three fields.";
+                    return View();
+                }
+
                 var userCheck = (from x in db.Users
                                  where user.emailAddress == x.emailAddress
                                  select x).ToList();
@@ -275,7 +281,12 @@ namespace TotalSquashNext.Controllers
                 }
 
             }
-            return View();
+            catch (Exception ex)
+            {
+                TempData["message"] = "Sorry, something went wrong! Try again, or contact us with the error: " + ex.GetBaseException().Message;
+                return View();
+            }
+
         }
 
         public ActionResult ChangePassword(int? id)
@@ -287,8 +298,13 @@ namespace TotalSquashNext.Controllers
         public ActionResult ChangePassword([Bind(Include = "id,password")] User user)
         {
             SimplerAES ep = new SimplerAES();
-            if (ModelState.IsValid)
+            try
             {
+                if (user.password == null || user.password.Trim() == "")
+                {
+                    TempData["message"] = "Password cannot be empty.";
+                    return View();
+                }
                 var currentUser = db.Users.Find(user.id);
                 string tempPass = user.password;
                 string encryptedPass = ep.Encrypt(tempPass);
@@ -296,10 +312,16 @@ namespace TotalSquashNext.Controllers
                 db.SaveChanges();
                 TempData["message"] = "Password successfully changed!";
                 return RedirectToAction("VerifyLogin", "Login");
-
             }
-            return View();
+            catch (Exception Exception)
+            {
+                TempData["message"] = "Sorry, an error occurred. Please try again, or contact us with a description of the problem and error message: " + Exception.GetBaseException().Message;
+                return View();
+            }
+
+
         }
 
     }
+
 }
