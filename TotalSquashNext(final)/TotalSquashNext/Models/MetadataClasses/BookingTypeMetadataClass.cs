@@ -18,7 +18,7 @@ namespace TotalSquashNext.Models
         [Display(Name = "Booking Code")]
         public int bookingCode { get; set; }
 
-        [Display(Name = "Description")]
+        [Display(Name = "Booking Type")]
         public string description { get; set; }
     }
 }

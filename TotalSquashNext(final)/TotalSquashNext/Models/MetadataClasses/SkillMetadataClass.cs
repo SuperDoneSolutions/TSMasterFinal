@@ -14,10 +14,10 @@ namespace TotalSquashNext.Models
     }
     public class SkillMetadataClass
     {
-        [Display(Name = "Skill")]
+        [Display(Name = "Skill Id")]
         public int skillId { get; set; }
 
-        [Display(Name = "Description")]
+        [Display(Name = "Skill Level")]
         public string description { get; set; }
     }
 }

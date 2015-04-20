@@ -19,7 +19,7 @@ namespace TotalSquashNext.Models
         [Display(Name = "Booking Rule ID")]
         public int bookingRuleId { get; set; }
 
-        [Display(Name = "Organiation ID")]
+        [Display(Name = "Organization ID")]
         public int organizationID { get; set; }
 
         [Display(Name = "Days In Advance")]

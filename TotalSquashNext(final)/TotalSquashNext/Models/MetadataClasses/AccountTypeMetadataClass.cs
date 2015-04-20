@@ -18,7 +18,7 @@ namespace TotalSquashNext.Models
         [Display(Name = "Account ID")]
         public int accountId { get; set; }
 
-        [Display(Name = "Description")]
+        [Display(Name = "Account Type")]
         public string description { get; set; }
     }
 }

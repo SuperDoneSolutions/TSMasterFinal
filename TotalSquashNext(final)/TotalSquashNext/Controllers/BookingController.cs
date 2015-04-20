@@ -114,8 +114,11 @@ namespace TotalSquashNext.Controllers
                                     where x.bookingRuleId == RULES
                                     select x.dayStart).Single();
 
+                    var dateTimeNow = DateTime.Today.AddHours(-1);
+
                     var numBookings = (from x in db.Bookings
                                        where x.userId == userQuery
+                                       where x.bookingDate > dateTimeNow
                                        select x).Count();
 
                     var numBookAllowed = (from x in db.BookingRules
