@@ -183,6 +183,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountTypesController.cs" />
     <Compile Include="Controllers\BookACourtController.cs" />
@@ -201,6 +202,8 @@
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Controllers\ProvincesController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\TotalMobileSquashController.cs" />
     <Compile Include="Controllers\UserLadderController.cs" />
     <Compile Include="Controllers\UserMatchController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -399,6 +402,7 @@
     <Content Include="font\fontawesome-webfont.eot" />
     <Content Include="font\fontawesome-webfont.ttf" />
     <Content Include="font\fontawesome-webfont.woff" />
+    <Content Include="www\index.html" />
     <EntityDeploy Include="Models\TotalSquashSQLModels.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TotalSquashSQLModels.Designer.cs</LastGenOutput>
