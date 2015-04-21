@@ -239,26 +239,41 @@ namespace TotalSquashNext.Controllers
 
 
             var matchIds = db.Matches.Where(x => x.bookingNumber == id).Select(x => x.matchId).ToList();
-            int matchId = matchIds[0];
-
-            var userMatch = db.UserMatches.Where(x => x.gameId == matchId);
-            var match = db.Matches.Where(x => x.matchId == matchId);
-            foreach (var u in userMatch)
+            if(matchIds.Count > 0)
             {
-                db.UserMatches.Remove(u);
+                int matchId = matchIds[0];
+                var userMatch = db.UserMatches.Where(x => x.gameId == matchId);
+                var match = db.Matches.Where(x => x.matchId == matchId);
+                foreach (var u in userMatch)
+                {
+                    db.UserMatches.Remove(u);
+                }
+
+                foreach (var m in match)
+                {
+                    db.Matches.Remove(m);
+                }
+
+                Booking booking = db.Bookings.Find(id);
+                db.Bookings.Remove(booking);
+
+                db.SaveChanges();
+                return RedirectToAction("LandingPage", "Login");
+            }
+            else
+            {
+
+                Booking booking = db.Bookings.Find(id);
+                db.Bookings.Remove(booking);
+
+                db.SaveChanges();
+                return RedirectToAction("LandingPage", "Login");
             }
 
-            foreach (var m in match)
-            {
-                db.Matches.Remove(m);
-            }
 
 
-            Booking booking = db.Bookings.Find(id);
-            db.Bookings.Remove(booking);
 
-            db.SaveChanges();
-            return RedirectToAction("LandingPage", "Login");
+            
         }
 
         public ActionResult CheckIn(int bookingId)
