@@ -20,7 +20,7 @@ namespace TotalSquashNext.Controllers
         //}
         public IEnumerable<object> GetUserEmail()
         {
-            var users = db.Users.Select(x => new { x.username, x.emailAddress });
+            var users = db.Users.Select(x => new { x.username, x.emailAddress }).OrderBy(x=>x.username);
             return users;
         }
 
