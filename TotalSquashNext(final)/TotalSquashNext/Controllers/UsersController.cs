@@ -164,6 +164,10 @@ namespace TotalSquashNext.Controllers
                         {
                             user.photo = Session["photoUpload"].ToString();
                         }
+                        else
+                        {
+                            user.photo = "../Images/anon.png";
+                        }
                         user.strike = 0;
                         user.wins = 0;
                         user.losses = 0;
